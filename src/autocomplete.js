@@ -387,6 +387,9 @@ export default class Autocomplete extends Component {
   render () {
     const {
       cssNamespace,
+      inputClassName: passedInputClassName,
+      menuClassName: passedMenuClassName,
+      optionClassName: passedOptionClassName,
       displayMenu,
       id,
       minLength,
@@ -469,7 +472,7 @@ export default class Autocomplete extends Component {
           aria-activedescendant={optionFocused ? `${id}__option--${focused}` : false}
           aria-owns={`${id}__listbox`}
           autoComplete='off'
-          className={`${inputClassName}${inputModifierFocused}${inputModifierType}`}
+          className={`${inputClassName}${inputModifierFocused}${inputModifierType} ${passedInputClassName}`}
           id={id}
           onClick={(event) => this.handleInputClick(event)}
           onBlur={this.handleInputBlur}
@@ -487,7 +490,7 @@ export default class Autocomplete extends Component {
         {dropdownArrow}
 
         <ul
-          className={`${menuClassName} ${menuModifierDisplayMenu} ${menuModifierVisibility}`}
+          className={`${menuClassName} ${menuModifierDisplayMenu} ${menuModifierVisibility} ${passedMenuClassName}`}
           id={`${id}__listbox`}
           role='listbox'
         >
@@ -499,7 +502,7 @@ export default class Autocomplete extends Component {
             return (
               <li
                 aria-selected={focused === index}
-                className={`${optionClassName}${optionModifierFocused}${optionModifierOdd}`}
+                className={`${optionClassName}${optionModifierFocused}${optionModifierOdd} ${passedOptionClassName}`}
                 dangerouslySetInnerHTML={{ __html: this.templateSuggestion(option) }}
                 id={`${id}__option--${index}`}
                 key={index}
