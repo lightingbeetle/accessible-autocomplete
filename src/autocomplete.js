@@ -51,6 +51,7 @@ export default class Autocomplete extends Component {
     name: 'input-autocomplete',
     placeholder: '',
     onConfirm: () => {},
+    onInit: () => {},
     confirmOnBlur: true,
     showNoOptionsFound: true,
     showAllValues: false,
@@ -97,6 +98,7 @@ export default class Autocomplete extends Component {
 
   componentDidMount () {
     this.pollInputElement()
+    this.props.onInit({ inputElement: this.elementReferences[-1] });
   }
 
   componentWillUnmount () {
