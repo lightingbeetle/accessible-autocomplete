@@ -44,7 +44,11 @@ accessibleAutocomplete.enhanceSelectElement = (configurationOptions) => {
   }
   if (configurationOptions.autoselect === undefined) configurationOptions.autoselect = true
 
+  configurationOptions.inputClassName = configurationOptions.selectElement.className
+
   const element = document.createElement('span')
+
+  element.classList.add('autocomplete__enhanced-select')
 
   configurationOptions.selectElement.parentNode.insertBefore(element, configurationOptions.selectElement)
 
