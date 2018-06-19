@@ -31,7 +31,9 @@ accessibleAutocomplete.enhanceSelectElement = (configurationOptions) => {
 
   if (configurationOptions.selectElement.value || configurationOptions.defaultValue === undefined) {
     const option = configurationOptions.selectElement.options[configurationOptions.selectElement.options.selectedIndex]
-    configurationOptions.defaultValue = option.textContent || option.innerText
+    if (option) {
+      configurationOptions.defaultValue = option.textContent || option.innerText
+    }
   }
 
   if (configurationOptions.name === undefined) configurationOptions.name = ''
