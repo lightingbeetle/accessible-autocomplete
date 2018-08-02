@@ -218,7 +218,7 @@ export default class Autocomplete extends Component {
       source(query, (options) => {
         const optionsAvailable = options.length > 0
         this.setState({
-          menuOpen: optionsAvailable,
+          menuOpen: event.target.getAttribute('disabled') === 'true' ? !optionsAvailable : optionsAvailable,
           options,
           selected: (autoselect && optionsAvailable) ? 0 : -1
         })
