@@ -242,7 +242,7 @@ If this is set to `true`, all values are shown when the user clicks the input. T
 to a default dropdown, so the autocomplete is rendered with a dropdown arrow to convey
 this behaviour.
 
-#### `showNoResultsFound` (default: `true`)
+#### `showNoOptionsFound` (default: `true`)
 
 Type: `Boolean`
 
@@ -291,7 +291,7 @@ Type: `Function`
 
 A function that receives no arguments and should return the text that is used in the accessibility hint to indicate that there are no results.
 
-#### `tStatusSelectedOption` (default: `` (selectedOption, length) => `${selectedOption} (1 of ${length}) is selected.` ``)
+#### `tStatusSelectedOption` (default: `` (selectedOption, length, index) => `${selectedOption} (${index + 1} of ${length}) is selected.` ``)
 
 Type: `Function`
 
