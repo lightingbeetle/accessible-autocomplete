@@ -520,7 +520,7 @@ export default class Autocomplete extends Component {
           })}
 
           {showNoOptionsFound && (
-            <li className={`${optionClassName} ${optionClassName}--no-results`}>{tNoResults()}</li>
+            <li className={`${optionClassName} ${optionClassName}--no-results ${passedOptionClassName}`}>{tNoResults()}</li>
           )}
         </ul>
       </div>
