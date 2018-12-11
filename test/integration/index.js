@@ -1,6 +1,6 @@
 /* global afterEach, before, beforeEach, browser, describe, it */
 const expect = require('chai').expect
-const {browserName, version} = browser.desiredCapabilities
+const { browserName, version } = browser.desiredCapabilities
 const isChrome = browserName === 'chrome'
 const isFireFox = browserName === 'firefox'
 const isIE = browserName === 'internet explorer'
@@ -135,9 +135,9 @@ const takeScreenshotsIfFail = () => {
     const testFailed = this.currentTest.state === 'failed'
     if (testFailed) {
       const timestamp = +new Date()
-      const browser = isIE ? `ie${version}` : browserName
+      const browserVariant = isIE ? `ie${version}` : browserName
       const testTitle = this.currentTest.title.replace(/\W/g, '-')
-      const filename = `./screenshots/${timestamp}-${browser}-${testTitle}.png`
+      const filename = `./screenshots/${timestamp}-${browserVariant}-${testTitle}.png`
       browser.saveScreenshot(filename)
       console.log(`Test failed, created: ${filename}`)
     }
