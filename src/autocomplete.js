@@ -451,7 +451,7 @@ export default class Autocomplete extends Component {
 
     // we only need a dropdown arrow if showAllValues is set to a truthy value
     if (showAllValues) {
-      dropdownArrow = dropdownArrowFactory({ className: dropdownArrowClassName })
+      dropdownArrow = dropdownArrowFactory({ className: dropdownArrowClassName, menuIsVisible })
 
       // if the factory returns a string we'll render this as HTML (usage w/o (P)React)
       if (typeof dropdownArrow === 'string') {
