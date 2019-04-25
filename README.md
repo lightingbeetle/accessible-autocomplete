@@ -220,6 +220,12 @@ Arguments: `confirmed: Object`
 
 This function will be called when the user confirms an option, with the option they've confirmed.
 
+### `onChange` (default: `undefined`)
+
+ Type: `Function`
+
+ A function that gets called with the current value of the input field as it's only argument. This is handy for integrations with other libraries (e.g. redux-form).
+
 #### `placeholder` (default: `''`) :warning: not recommended :warning:
 
 Type: `string`

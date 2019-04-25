@@ -51,6 +51,7 @@ export default class Autocomplete extends Component {
     name: 'input-autocomplete',
     placeholder: '',
     onConfirm: () => {},
+    onChange: () => {},
     onInit: () => {},
     confirmOnBlur: true,
     showNoOptionsFound: true,
@@ -239,6 +240,10 @@ export default class Autocomplete extends Component {
         options: []
       })
     }
+
+    if (queryChanged) {
+      this.props.onChange(query)
+    }
   }
 
   handleInputClick (event) {
@@ -283,6 +288,8 @@ export default class Autocomplete extends Component {
       selected: -1
     })
     this.forceUpdate()
+
+    this.props.onChange(newQuery)
   }
 
   handleUpArrow (event) {
