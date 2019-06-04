@@ -1,6 +1,9 @@
 import { createElement, render } from 'preact'; /** @jsx createElement */
 import Autocomplete from './autocomplete';
 
+let renderer = null;
+let observer = null;
+
 function accessibleAutocomplete(options) {
   if (!options.element) {
     throw new Error('element is not defined');
@@ -14,30 +17,47 @@ function accessibleAutocomplete(options) {
   if (Array.isArray(options.source)) {
     options.source = createSimpleEngine(options.source);
   }
-  render(<Autocomplete {...options} />, options.element);
+
+  renderer = render(<Autocomplete {...options} />, options.element);
+
+  // create MutationObserver and re-render <Autocomplete />
+  observer = new MutationObserver(mutationsList => {
+    for (const mutation of mutationsList) {
+      if (mutation.type == 'childList') {
+        options.source = createSimpleEngine(getSourceArray(options));
+        render(<Autocomplete {...options} />, options.element, renderer);
+      }
+    }
+  });
+
+  observer.observe(options.selectElement, {
+    childList: true,
+    subtree: true
+  });
 }
 
 const createSimpleEngine = values => (query, syncResults) => {
-  var matches = values.filter(
+  const matches = values.filter(
     r => r.toLowerCase().indexOf(query.toLowerCase()) !== -1
   );
   syncResults(matches);
+};
+
+const getSourceArray = configurationOptions => {
+  let availableOptions = [].filter.call(
+    configurationOptions.selectElement.options,
+    option => option.value || configurationOptions.preserveNullOptions
+  );
+  return availableOptions.map(option => option.textContent || option.innerText);
 };
 
 accessibleAutocomplete.enhanceSelectElement = configurationOptions => {
   if (!configurationOptions.selectElement) {
     throw new Error('selectElement is not defined');
   }
-
   // Set defaults.
   if (!configurationOptions.source) {
-    let availableOptions = [].filter.call(
-      configurationOptions.selectElement.options,
-      option => option.value || configurationOptions.preserveNullOptions
-    );
-    configurationOptions.source = availableOptions.map(
-      option => option.textContent || option.innerText
-    );
+    configurationOptions.source = getSourceArray(configurationOptions);
   }
   configurationOptions.onConfirm =
     configurationOptions.onConfirm ||
@@ -96,6 +116,10 @@ accessibleAutocomplete.enhanceSelectElement = configurationOptions => {
   configurationOptions.selectElement.style.display = 'none';
   configurationOptions.selectElement.id =
     configurationOptions.selectElement.id + '-select';
+};
+
+accessibleAutocomplete.destroy = () => {
+  if (observer) observer.disconnect();
 };
 
 export default accessibleAutocomplete;
