@@ -31,12 +31,18 @@ function accessibleAutocomplete(options) {
         options.source = createSimpleEngine(getSourceArray(options));
         render(<Autocomplete {...options} />, options.element, renderer);
       }
+      if (mutation.type == 'attributes') {
+        options.inputClassName = mutation.target.classList;
+        render(<Autocomplete {...options} />, options.element, renderer);
+      }
     }
   });
 
   observer.observe(options.selectElement, {
     childList: true,
-    subtree: true
+    subtree: true,
+    attributes: true,
+    attributeFilter: ['class'],
   });
 }
 
