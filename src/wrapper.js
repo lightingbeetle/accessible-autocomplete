@@ -20,6 +20,10 @@ function accessibleAutocomplete(options) {
 
   renderer = render(<Autocomplete {...options} />, options.element);
 
+  if (typeof options.selectElement === 'undefined') {
+    return renderer;
+  }
+
   // create MutationObserver and re-render <Autocomplete />
   observer = new MutationObserver(mutationsList => {
     for (const mutation of mutationsList) {
