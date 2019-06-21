@@ -29,13 +29,12 @@ function accessibleAutocomplete(options) {
     for (const mutation of mutationsList) {
       if (mutation.type == 'childList') {
         options.source = createSimpleEngine(getSourceArray(options));
-        render(<Autocomplete {...options} />, options.element, renderer);
       }
       if (mutation.type == 'attributes') {
         options.inputClassName = mutation.target.classList;
-        render(<Autocomplete {...options} />, options.element, renderer);
       }
     }
+    render(<Autocomplete {...options} />, options.element, renderer);
   });
 
   observer.observe(options.selectElement, {
