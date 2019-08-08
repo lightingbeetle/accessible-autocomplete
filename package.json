@@ -53,6 +53,7 @@
     "chai": "^4.2.0",
     "chalk": "^2.4.1",
     "copy-webpack-plugin": "^4.6.0",
+    "core-js": "~2.6.9",
     "coveralls": "^3.0.2",
     "cross-env": "^5.2.0",
     "csso-cli": "^1.1.0",
