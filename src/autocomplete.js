@@ -244,6 +244,11 @@ export default class Autocomplete extends Component {
 
     if (queryChanged) {
       this.props.onChange(query)
+      if (query.length > 0) {
+        this.state.allValues = true;
+      } else {
+        this.state.allValues = false;
+      }
     }
   }
 
