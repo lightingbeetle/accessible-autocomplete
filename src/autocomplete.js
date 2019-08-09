@@ -74,6 +74,7 @@ export default class Autocomplete extends Component {
       options: props.defaultValue ? [props.defaultValue] : [],
       query: props.defaultValue,
       selected: null,
+      // Because in React is forbidden to change component's prop inside the component, we need to save the prop inside the state and change it later
       renderAllValues: props.showAllValues
     }
 
