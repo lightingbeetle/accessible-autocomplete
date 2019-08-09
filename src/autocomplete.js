@@ -74,7 +74,7 @@ export default class Autocomplete extends Component {
       options: props.defaultValue ? [props.defaultValue] : [],
       query: props.defaultValue,
       selected: null,
-      allValues: props.showAllValues
+      renderAllValues: props.showAllValues
     }
 
     this.handleComponentBlur = this.handleComponentBlur.bind(this)
@@ -225,7 +225,7 @@ export default class Autocomplete extends Component {
 
     this.setState({ query })
 
-    const searchForOptions = this.state.allValues || (!queryEmpty && queryChanged && queryLongEnough)
+    const searchForOptions = this.state.renderAllValues || (!queryEmpty && queryChanged && queryLongEnough)
     if (searchForOptions) {
       source(query, (options) => {
         const optionsAvailable = options.length > 0
@@ -245,9 +245,9 @@ export default class Autocomplete extends Component {
     if (queryChanged) {
       this.props.onChange(query)
       if (query.length > 0) {
-        this.state.allValues = true;
+        this.state.renderAllValues = true;
       } else {
-        this.state.allValues = false;
+        this.state.renderAllValues = false;
       }
     }
   }
@@ -313,7 +313,7 @@ export default class Autocomplete extends Component {
   handleDownArrow (event) {
     event.preventDefault()
     // if not open, open
-    if (this.state.allValues && this.state.menuOpen === false) {
+    if (this.state.renderAllValues && this.state.menuOpen === false) {
       event.preventDefault()
       this.props.source('', (options) => {
         this.setState({
@@ -336,7 +336,7 @@ export default class Autocomplete extends Component {
 
   handleSpace (event) {
     // if not open, open
-    if (this.state.allValues && this.state.menuOpen === false && this.state.query === '') {
+    if (this.state.renderAllValues && this.state.menuOpen === false && this.state.query === '') {
       event.preventDefault()
       this.props.source('', (options) => {
         this.setState({
@@ -419,7 +419,7 @@ export default class Autocomplete extends Component {
       tStatusResults,
       dropdownArrow: dropdownArrowFactory
     } = this.props
-    const { focused, hovered, menuOpen, options, query, selected, allValues } = this.state
+    const { focused, hovered, menuOpen, options, query, selected, renderAllValues } = this.state
     const autoselect = this.hasAutoselect()
 
     const inputFocused = focused === -1
@@ -434,7 +434,7 @@ export default class Autocomplete extends Component {
     const inputClassName = `${cssNamespace}__input`
     const componentIsFocused = focused !== null
     const inputModifierFocused = componentIsFocused ? ` ${inputClassName}--focused` : ''
-    const inputModifierType = allValues ? ` ${inputClassName}--show-all-values` : ` ${inputClassName}--default`
+    const inputModifierType = renderAllValues ? ` ${inputClassName}--show-all-values` : ` ${inputClassName}--default`
     const dropdownArrowClassName = `${cssNamespace}__dropdown-arrow-down`
     const optionFocused = focused !== -1 && focused !== null
 
@@ -456,8 +456,8 @@ export default class Autocomplete extends Component {
 
     let dropdownArrow
 
-    // we only need a dropdown arrow if allValues is set to a truthy value
-    if (this.state.allValues) {
+    // we only need a dropdown arrow if renderAllValues is set to a truthy value
+    if (this.state.renderAllValues) {
       dropdownArrow = dropdownArrowFactory({ className: dropdownArrowClassName, menuIsVisible })
 
       // if the factory returns a string we'll render this as HTML (usage w/o (P)React)
