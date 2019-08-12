@@ -1,6 +1,6 @@
 {
   "name": "@lighting-beetle/accessible-autocomplete",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "main": "dist/accessible-autocomplete.min.js",
   "style": "dist/accessible-autocomplete.min.css",
   "description": "An autocomplete component, built to be accessible.",
