@@ -1,10 +1,13 @@
 {
-  "name": "accessible-autocomplete",
+  "name": "@lighting-beetle/accessible-autocomplete",
   "version": "1.6.2",
   "main": "dist/accessible-autocomplete.min.js",
   "style": "dist/accessible-autocomplete.min.css",
   "description": "An autocomplete component, built to be accessible.",
-  "repository": "alphagov/accessible-autocomplete",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lightingbeetle/accessible-autocomplete"
+  },
   "author": "Government Digital Service (https://www.gov.uk/government/organisations/government-digital-service)",
   "license": "MIT",
   "keywords": [
@@ -102,5 +105,9 @@
   ],
   "standard": {
     "parser": "babel-eslint"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/lightingbeetle/accessible-autocomplete/issues"
+  },
+  "homepage": "https://github.com/lightingbeetle/accessible-autocomplete#readme"
 }
