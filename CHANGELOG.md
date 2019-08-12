@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## 1.7.0 - 2019-12-08
+
+- install `core-js` dependency to fix `WARNING: We noticed you're using the useBuiltInsoption without declaring a core-js version. Currently, we assume version 2.x when no version is passed. Since this default version will likely change in future versions of Babel, we recommend explicitly setting the core-js version you are using via thecorejs option.`
+- Create an npm package under a lighting-beetle organization
+
 ## 1.6.2 - 2018-11-13
 
 - Update all packages and add `@babel/preset-env` for browser polyfills. Updates Preact and avoids React 16 `onFocusOut` warnings - thanks [@colinrotherham](https://github.com/colinrotherham)
