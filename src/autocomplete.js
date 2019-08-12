@@ -261,7 +261,7 @@ export default class Autocomplete extends Component {
     this.setState({
       focused: -1
     })
-
+    // We call here `handleInputChange()` method because if internal functions were pulled out to separate helper function will cause a lot of diff after updating this fork with source
     this.handleInputChange(event)
   }
 
