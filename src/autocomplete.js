@@ -58,7 +58,8 @@ export default class Autocomplete extends Component {
     showAllValues: false,
     required: false,
     tNoResults: () => 'No results found',
-    dropdownArrow: DropdownArrowDown
+    dropdownArrow: DropdownArrowDown,
+    isDisabled: false
   }
 
   elementReferences = {}
@@ -422,7 +423,8 @@ export default class Autocomplete extends Component {
       tStatusNoResults,
       tStatusSelectedOption,
       tStatusResults,
-      dropdownArrow: dropdownArrowFactory
+      dropdownArrow: dropdownArrowFactory,
+      isDisabled
     } = this.props
     const { focused, hovered, menuOpen, options, query, selected, showAllValuesOnFocus } = this.state
     const autoselect = this.hasAutoselect()
@@ -506,6 +508,7 @@ export default class Autocomplete extends Component {
           role='textbox'
           required={required}
           value={query}
+          disabled={isDisabled}
         />
 
         {dropdownArrow}
