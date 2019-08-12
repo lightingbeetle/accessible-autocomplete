@@ -35,6 +35,7 @@
     }
   },
   "dependencies": {
+    "core-js": "~2.6.9",
     "preact": "^10.0.0-beta.2"
   },
   "devDependencies": {
