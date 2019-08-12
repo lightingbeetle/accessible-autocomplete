@@ -461,8 +461,8 @@ export default class Autocomplete extends Component {
 
     let dropdownArrow
 
-    // we only need a dropdown arrow if showAllValuesOnFocus is set to a truthy value
-    if (this.state.showAllValuesOnFocus) {
+    // we only need a dropdown arrow if showAllValues is set to a truthy value
+    if (this.props.showAllValues) {
       dropdownArrow = dropdownArrowFactory({ className: dropdownArrowClassName, menuIsVisible })
 
       // if the factory returns a string we'll render this as HTML (usage w/o (P)React)
