@@ -103,6 +103,10 @@ export default class Autocomplete extends Component {
   componentDidMount () {
     this.pollInputElement()
     this.props.onInit({ inputElement: this.elementReferences[-1] });
+
+    if (this.props.defaultValue) {
+      this.setState({ showAllValuesOnFocus: true })
+    }
   }
 
   componentWillUnmount () {
@@ -246,9 +250,9 @@ export default class Autocomplete extends Component {
     if (queryChanged) {
       this.props.onChange(query)
       if (query.length > 0) {
-        this.state.showAllValuesOnFocus = true;
+        this.setState({ showAllValuesOnFocus: true })
       } else {
-        this.state.showAllValuesOnFocus = false;
+        this.setState({ showAllValuesOnFocus: false })
       }
     }
   }
