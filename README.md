@@ -322,6 +322,12 @@ Type: `Function`
 
 A function that receives two arguments, the count of available options and the return value of `tStatusSelectedOption`, and should return the text used in the accessibility hint to indicate which options are available and which is selected.
 
+#### `isDisabled` (default: `false`)
+
+Type: `Boolean`
+
+Disabled autocomplete
+
 ## Progressive enhancement
 
 If your autocomplete is meant to select from a small list of options (a few hundred), we strongly suggest that you render a `<select>` menu on the server, and use progressive enhancement.
