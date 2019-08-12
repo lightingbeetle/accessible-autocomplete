@@ -2,10 +2,20 @@
 
 ## [Unreleased]
 
+## 1.8.0 - 2019-12-08
+
+If the user has prefilled `defaultValue`, or user wrote a query, autocomplete options will be rendered `onFocus` and `onClick`
+[@LukasPolak](https://github.com/LukasPolak)
+  ([#11](https://github.com/lightingbeetle/accessible-autocomplete/pull/11))
+
 ## 1.7.0 - 2019-12-08
 
 - install `core-js` dependency to fix `WARNING: We noticed you're using the useBuiltInsoption without declaring a core-js version. Currently, we assume version 2.x when no version is passed. Since this default version will likely change in future versions of Babel, we recommend explicitly setting the core-js version you are using via thecorejs option.`
 - Create an npm package under a lighting-beetle organization
+- [@LukasPolak](https://github.com/LukasPolak) 
+  ([#12](https://github.com/lightingbeetle/accessible-autocomplete/pull/12),
+  [#13](https://github.com/lightingbeetle/accessible-autocomplete/pull/13),
+  [#14](https://github.com/lightingbeetle/accessible-autocomplete/pull/14))
 
 ## 1.6.2 - 2018-11-13
 

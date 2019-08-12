@@ -73,7 +73,9 @@ export default class Autocomplete extends Component {
       menuOpen: false,
       options: props.defaultValue ? [props.defaultValue] : [],
       query: props.defaultValue,
-      selected: null
+      selected: null,
+      // Because in React is forbidden to change component's prop inside the component, we need to save the prop inside the state and change it later
+      showAllValuesOnFocus: props.showAllValues
     }
 
     this.handleComponentBlur = this.handleComponentBlur.bind(this)
@@ -101,6 +103,10 @@ export default class Autocomplete extends Component {
   componentDidMount () {
     this.pollInputElement()
     this.props.onInit({ inputElement: this.elementReferences[-1] });
+
+    if (this.props.defaultValue) {
+      this.setState({ showAllValuesOnFocus: true })
+    }
   }
 
   componentWillUnmount () {
@@ -215,7 +221,7 @@ export default class Autocomplete extends Component {
   }
 
   handleInputChange (event) {
-    const { minLength, source, showAllValues } = this.props
+    const { minLength, source } = this.props
     const autoselect = this.hasAutoselect()
     const query = event.target.value
     const queryEmpty = query.length === 0
@@ -224,7 +230,7 @@ export default class Autocomplete extends Component {
 
     this.setState({ query })
 
-    const searchForOptions = showAllValues || (!queryEmpty && queryChanged && queryLongEnough)
+    const searchForOptions = this.state.showAllValuesOnFocus || (!queryEmpty && queryChanged && queryLongEnough)
     if (searchForOptions) {
       source(query, (options) => {
         const optionsAvailable = options.length > 0
@@ -243,6 +249,11 @@ export default class Autocomplete extends Component {
 
     if (queryChanged) {
       this.props.onChange(query)
+      if (query.length > 0) {
+        this.setState({ showAllValuesOnFocus: true })
+      } else {
+        this.setState({ showAllValuesOnFocus: false })
+      }
     }
   }
 
@@ -254,6 +265,8 @@ export default class Autocomplete extends Component {
     this.setState({
       focused: -1
     })
+    // We call here `handleInputChange()` method because if internal functions were pulled out to separate helper function will cause a lot of diff after updating this fork with source
+    this.handleInputChange(event)
   }
 
   handleOptionFocus (index) {
@@ -305,7 +318,7 @@ export default class Autocomplete extends Component {
   handleDownArrow (event) {
     event.preventDefault()
     // if not open, open
-    if (this.props.showAllValues && this.state.menuOpen === false) {
+    if (this.state.showAllValuesOnFocus && this.state.menuOpen === false) {
       event.preventDefault()
       this.props.source('', (options) => {
         this.setState({
@@ -328,7 +341,7 @@ export default class Autocomplete extends Component {
 
   handleSpace (event) {
     // if not open, open
-    if (this.props.showAllValues && this.state.menuOpen === false && this.state.query === '') {
+    if (this.state.showAllValuesOnFocus && this.state.menuOpen === false && this.state.query === '') {
       event.preventDefault()
       this.props.source('', (options) => {
         this.setState({
@@ -404,7 +417,6 @@ export default class Autocomplete extends Component {
       name,
       placeholder,
       required,
-      showAllValues,
       tNoResults,
       tStatusQueryTooShort,
       tStatusNoResults,
@@ -412,7 +424,7 @@ export default class Autocomplete extends Component {
       tStatusResults,
       dropdownArrow: dropdownArrowFactory
     } = this.props
-    const { focused, hovered, menuOpen, options, query, selected } = this.state
+    const { focused, hovered, menuOpen, options, query, selected, showAllValuesOnFocus } = this.state
     const autoselect = this.hasAutoselect()
 
     const inputFocused = focused === -1
@@ -427,7 +439,7 @@ export default class Autocomplete extends Component {
     const inputClassName = `${cssNamespace}__input`
     const componentIsFocused = focused !== null
     const inputModifierFocused = componentIsFocused ? ` ${inputClassName}--focused` : ''
-    const inputModifierType = this.props.showAllValues ? ` ${inputClassName}--show-all-values` : ` ${inputClassName}--default`
+    const inputModifierType = showAllValuesOnFocus ? ` ${inputClassName}--show-all-values` : ` ${inputClassName}--default`
     const dropdownArrowClassName = `${cssNamespace}__dropdown-arrow-down`
     const optionFocused = focused !== -1 && focused !== null
 
@@ -450,7 +462,7 @@ export default class Autocomplete extends Component {
     let dropdownArrow
 
     // we only need a dropdown arrow if showAllValues is set to a truthy value
-    if (showAllValues) {
+    if (this.props.showAllValues) {
       dropdownArrow = dropdownArrowFactory({ className: dropdownArrowClassName, menuIsVisible })
 
       // if the factory returns a string we'll render this as HTML (usage w/o (P)React)

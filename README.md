@@ -417,6 +417,12 @@ Check out the [CONTRIBUTING](CONTRIBUTING.md) guide for instructions.
 
 If you want to help and want to get more familiar with the codebase, try starting with the ["good for beginners"](https://github.com/alphagov/accessible-autocomplete/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+for+beginners%22) issues.
 
+## Updates by Lighting Beetle
+
+### 1.8.0
+
+If the user has prefilled `defaultValue`, or user wrote a query, autocomplete options will be rendered `onFocus` and `onClick`
+
 ## License
 
 [MIT](LICENSE.txt).
