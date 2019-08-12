@@ -24,7 +24,7 @@
 Install it by running:
 
 ```bash
-npm install --save accessible-autocomplete
+npm install @lighting-beetle/accessible-autocomplete
 ```
 
 The `accessibleAutocomplete` function will render an autocomplete `<input>` and its accompanying suggestions and `aria-live` region. Your page should provide a `<label>` and a container element:
