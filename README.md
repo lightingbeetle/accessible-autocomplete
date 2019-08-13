@@ -200,6 +200,12 @@ Type: `'inline' | 'overlay'`
 
 You can set this property to specify the way the menu should appear, whether inline or as an overlay.
 
+#### `isDisabled` (default: `false`)
+
+Type: `Boolean`
+
+Disable autocomplete.
+
 #### `minLength` (default: `0`)
 
 Type: `number`
@@ -321,12 +327,6 @@ Default:
 Type: `Function`
 
 A function that receives two arguments, the count of available options and the return value of `tStatusSelectedOption`, and should return the text used in the accessibility hint to indicate which options are available and which is selected.
-
-#### `isDisabled` (default: `false`)
-
-Type: `Boolean`
-
-Disable autocomplete
 
 ## Progressive enhancement
 
