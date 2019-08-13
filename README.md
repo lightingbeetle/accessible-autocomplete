@@ -200,6 +200,12 @@ Type: `'inline' | 'overlay'`
 
 You can set this property to specify the way the menu should appear, whether inline or as an overlay.
 
+#### `isDisabled` (default: `false`)
+
+Type: `Boolean`
+
+Disable autocomplete.
+
 #### `minLength` (default: `0`)
 
 Type: `number`
