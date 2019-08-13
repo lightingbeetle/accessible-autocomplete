@@ -292,7 +292,7 @@ export default class Autocomplete extends Component {
     clearTimeout(this.$blurInput)
     this.props.onConfirm(selectedOption)
     this.setState({
-      focused: -1,
+      focused: 0,
       clicked: index,
       hovered: null,
       menuOpen: false,
