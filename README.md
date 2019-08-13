@@ -326,7 +326,7 @@ A function that receives two arguments, the count of available options and the r
 
 Type: `Boolean`
 
-Disabled autocomplete
+Disable autocomplete
 
 ## Progressive enhancement
 
