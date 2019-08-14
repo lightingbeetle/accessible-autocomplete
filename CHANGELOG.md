@@ -6,7 +6,7 @@
 
 add option to disable autocomplete
 [@LukasPolak](https://github.com/LukasPolak)
-  ([#11](https://github.com/lightingbeetle/accessible-autocomplete/pull/11))
+  ([#16](https://github.com/lightingbeetle/accessible-autocomplete/pull/16))
 
 ## 1.8.0 - 2019-12-08
 
