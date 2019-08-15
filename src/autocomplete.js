@@ -150,6 +150,24 @@ export default class Autocomplete extends Component {
       const inputElement = this.elementReferences[focused]
       inputElement.setSelectionRange(0, inputElement.value.length)
     }
+
+    if (prevProps.value !== this.props.value) {
+      this.setState({ query: this.props.value });
+
+      this.props.source(this.props.value, options => {
+        if (!compareArr(this.state.options, options)) {
+          const optionsAvailable = options.length > 0;
+          this.setState({
+            menuOpen:
+              this.elementReferences[-1].getAttribute("disabled") === "true"
+                ? false
+                : optionsAvailable,
+            options,
+            selected: this.hasAutoselect() && optionsAvailable ? 0 : -1
+          });
+        }
+      });
+    }
   }
 
   hasAutoselect () {
