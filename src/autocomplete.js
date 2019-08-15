@@ -77,7 +77,10 @@ export default class Autocomplete extends Component {
       hovered: null,
       clicked: null,
       menuOpen: false,
-      options: props.defaultValue ? [props.defaultValue] : [],
+      options:
+        (props.value && [props.value]) || props.defaultValue
+          ? [props.defaultValue]
+          : [],
       query: props.value || props.defaultValue || '',
       selected: null,
       // Because in React is forbidden to change component's prop inside the component, we need to save the prop inside the state and change it later
