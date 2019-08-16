@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## 1.9.0 - 2019-14-08
+
+add option to disable autocomplete
+[@LukasPolak](https://github.com/LukasPolak)
+  ([#16](https://github.com/lightingbeetle/accessible-autocomplete/pull/16))
+
 ## 1.8.0 - 2019-12-08
 
 If the user has prefilled `defaultValue`, or user wrote a query, autocomplete options will be rendered `onFocus` and `onClick`
