@@ -150,6 +150,24 @@ export default class Autocomplete extends Component {
       const inputElement = this.elementReferences[focused]
       inputElement.setSelectionRange(0, inputElement.value.length)
     }
+
+    if (prevProps.value !== this.props.value) {
+      this.setState({ query: this.props.value });
+
+      this.props.source(this.props.value, options => {
+        if (!compareArr(this.state.options, options)) {
+          const optionsAvailable = options.length > 0;
+          this.setState({
+            menuOpen:
+              this.elementReferences[-1].getAttribute("disabled") === "true"
+                ? false
+                : optionsAvailable,
+            options,
+            selected: this.hasAutoselect() && optionsAvailable ? 0 : -1
+          });
+        }
+      });
+    }
   }
 
   hasAutoselect () {
@@ -266,8 +284,7 @@ export default class Autocomplete extends Component {
     this.setState({
       focused: -1
     })
-    // We call here `handleInputChange()` method because if internal functions were pulled out to separate helper function will cause a lot of diff after updating this fork with source
-    this.handleInputChange(event)
+    this.setState({ menuOpen: true })
   }
 
   handleOptionFocus (index) {
@@ -294,7 +311,7 @@ export default class Autocomplete extends Component {
     clearTimeout(this.$blurInput)
     this.props.onConfirm(selectedOption)
     this.setState({
-      focused: -1,
+      focused: 0,
       clicked: index,
       hovered: null,
       menuOpen: false,
