@@ -425,6 +425,14 @@ If you want to help and want to get more familiar with the codebase, try startin
 
 ## Updates by Lighting Beetle
 
+### 1.10.0
+
+This update brings option to controle autocomplete from outside and fix bug with not closing autocomplete.
+
+### 1.9.0
+
+This update brings option for disabling autocomplete.
+
 ### 1.8.0
 
 If the user has prefilled `defaultValue`, or user wrote a query, autocomplete options will be rendered `onFocus` and `onClick`
