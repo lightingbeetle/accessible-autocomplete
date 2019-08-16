@@ -5,22 +5,23 @@ let renderer = null;
 let observer = null;
 
 function accessibleAutocomplete(options) {
-  if (!options.element) {
+  let currentOptions = { ...options };
+  if (!currentOptions.element) {
     throw new Error('element is not defined');
   }
-  if (!options.id) {
+  if (!currentOptions.id) {
     throw new Error('id is not defined');
   }
-  if (!options.source) {
+  if (!currentOptions.source) {
     throw new Error('source is not defined');
   }
-  if (Array.isArray(options.source)) {
-    options.source = createSimpleEngine(options.source);
+  if (Array.isArray(currentOptions.source)) {
+    currentOptions.source = createSimpleEngine(currentOptions.source);
   }
 
-  renderer = render(<Autocomplete {...options} />, options.element);
+  renderer = render(<Autocomplete {...currentOptions} />, currentOptions.element);
 
-  if (typeof options.selectElement === 'undefined') {
+  if (typeof currentOptions.selectElement === 'undefined') {
     return renderer;
   }
 
@@ -28,21 +29,29 @@ function accessibleAutocomplete(options) {
   observer = new MutationObserver(mutationsList => {
     for (const mutation of mutationsList) {
       if (mutation.type == 'childList') {
-        options.source = createSimpleEngine(getSourceArray(options));
+        currentOptions.source = createSimpleEngine(getSourceArray(currentOptions));
       }
       if (mutation.type == 'attributes') {
-        options.inputClassName = mutation.target.classList;
+        currentOptions.inputClassName = mutation.target.classList;
       }
     }
-    render(<Autocomplete {...options} />, options.element, renderer);
+    render(<Autocomplete {...currentOptions} />, currentOptions.element, renderer);
   });
 
-  observer.observe(options.selectElement, {
+  observer.observe(currentOptions.selectElement, {
     childList: true,
     subtree: true,
     attributes: true,
     attributeFilter: ['class'],
   });
+
+  return {
+    setOptions: (newOptions) => {
+      const mergedOptions = {...currentOptions, ...newOptions};
+      currentOptions = mergedOptions;
+      render(<Autocomplete {...mergedOptions} />, mergedOptions.element, renderer);
+    }
+  }
 }
 
 const createSimpleEngine = values => (query, syncResults) => {
@@ -117,14 +126,15 @@ accessibleAutocomplete.enhanceSelectElement = configurationOptions => {
     configurationOptions.selectElement
   );
 
-  accessibleAutocomplete({
-    ...configurationOptions,
-    element: element
-  });
 
   configurationOptions.selectElement.style.display = 'none';
   configurationOptions.selectElement.id =
     configurationOptions.selectElement.id + '-select';
+
+  return accessibleAutocomplete({
+    ...configurationOptions,
+    element: element
+  });
 };
 
 accessibleAutocomplete.destroy = () => {

@@ -13,6 +13,10 @@ const keyCodes = {
   40: 'down'
 }
 
+function compareArr(a, b) {
+  return a.length === b.length && a.every((value, index) => value === b[index]);
+}
+
 // Based on https://github.com/ausi/Feature-detection-technique-for-pointer-events
 const hasPointerEvents = (() => {
   const element = document.createElement('x')
@@ -46,6 +50,7 @@ export default class Autocomplete extends Component {
     autoselect: false,
     cssNamespace: 'autocomplete',
     defaultValue: '',
+    value: '',
     displayMenu: 'inline',
     minLength: 0,
     name: 'input-autocomplete',
@@ -72,8 +77,11 @@ export default class Autocomplete extends Component {
       hovered: null,
       clicked: null,
       menuOpen: false,
-      options: props.defaultValue ? [props.defaultValue] : [],
-      query: props.defaultValue,
+      options:
+        (props.value && [props.value]) || props.defaultValue
+          ? [props.defaultValue]
+          : [],
+      query: props.value || props.defaultValue || '',
       selected: null,
       // Because in React is forbidden to change component's prop inside the component, we need to save the prop inside the state and change it later
       showAllValuesOnFocus: props.showAllValues
@@ -105,7 +113,7 @@ export default class Autocomplete extends Component {
     this.pollInputElement()
     this.props.onInit({ inputElement: this.elementReferences[-1] });
 
-    if (this.props.defaultValue) {
+    if (this.props.defaultValue || this.props.value) {
       this.setState({ showAllValuesOnFocus: true })
     }
   }
@@ -153,7 +161,6 @@ export default class Autocomplete extends Component {
 
     if (prevProps.value !== this.props.value) {
       this.setState({ query: this.props.value });
-
       this.props.source(this.props.value, options => {
         if (!compareArr(this.state.options, options)) {
           const optionsAvailable = options.length > 0;
