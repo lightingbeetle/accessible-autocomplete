@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+## 1.10.0 - 2019-16-08
+
+- Fix closing dropdown after clicking on option
+  [@LukasPolak](https://github.com/LukasPolak)
+    ([#17](https://github.com/lightingbeetle/accessible-autocomplete/pull/17))
+- Make package fully controllable from outside
+  [@LukasPolak](https://github.com/LukasPolak)
+    ([#18](https://github.com/lightingbeetle/accessible-autocomplete/pull/18))
+
 ## 1.9.0 - 2019-14-08
 
 add option to disable autocomplete
