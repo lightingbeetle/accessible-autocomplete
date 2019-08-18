@@ -166,6 +166,15 @@ export default class Autocomplete extends Component {
       inputElement.setSelectionRange(0, inputElement.value.length)
     }
 
+    if (prevProps !== this.props && this.props.newOptions) {
+      this.props.source(this.props.value, newOptions => {
+        this.setState({
+          menuOpen: true,
+          options: newOptions
+        });
+      });
+    }
+
     if (prevProps.value !== this.props.value) {
       this.setState({ query: this.props.value });
       this.props.source(this.props.value, options => {
