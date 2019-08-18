@@ -4,24 +4,24 @@ import Autocomplete from './autocomplete';
 let renderer = null;
 let observer = null;
 
-function accessibleAutocomplete(options) {
-  let currentOptions = { ...options };
-  if (!currentOptions.element) {
+function accessibleAutocomplete(config) {
+  let currentConfig = { ...config };
+  if (!currentConfig.element) {
     throw new Error('element is not defined');
   }
-  if (!currentOptions.id) {
+  if (!currentConfig.id) {
     throw new Error('id is not defined');
   }
-  if (!currentOptions.source) {
+  if (!currentConfig.source) {
     throw new Error('source is not defined');
   }
-  if (Array.isArray(currentOptions.source)) {
-    currentOptions.source = createSimpleEngine(currentOptions.source);
+  if (Array.isArray(currentConfig.source)) {
+    currentConfig.source = createSimpleEngine(currentConfig.source);
   }
 
-  renderer = render(<Autocomplete {...currentOptions} />, currentOptions.element);
+  renderer = render(<Autocomplete {...currentConfig} />, currentConfig.element);
 
-  if (typeof currentOptions.selectElement === 'undefined') {
+  if (typeof currentConfig.selectElement === 'undefined') {
     return renderer;
   }
 
@@ -29,16 +29,16 @@ function accessibleAutocomplete(options) {
   observer = new MutationObserver(mutationsList => {
     for (const mutation of mutationsList) {
       if (mutation.type == 'childList') {
-        currentOptions.source = createSimpleEngine(getSourceArray(currentOptions));
+        currentConfig.source = createSimpleEngine(getSourceArray(currentConfig));
       }
       if (mutation.type == 'attributes') {
-        currentOptions.inputClassName = mutation.target.classList;
+        currentConfig.inputClassName = mutation.target.classList;
       }
     }
-    render(<Autocomplete {...currentOptions} />, currentOptions.element, renderer);
+    render(<Autocomplete {...currentConfig} />, currentConfig.element, renderer);
   });
 
-  observer.observe(currentOptions.selectElement, {
+  observer.observe(currentConfig.selectElement, {
     childList: true,
     subtree: true,
     attributes: true,
@@ -46,10 +46,10 @@ function accessibleAutocomplete(options) {
   });
 
   return {
-    setOptions: (newOptions) => {
-      const mergedOptions = {...currentOptions, ...newOptions};
-      currentOptions = mergedOptions;
-      render(<Autocomplete {...mergedOptions} />, mergedOptions.element, renderer);
+    setConfig: (newConfig) => {
+      const mergedConfig = {...currentConfig, ...newConfig};
+      currentConfig = mergedConfig;
+      render(<Autocomplete {...mergedConfig} />, mergedConfig.element, renderer);
     }
   }
 }
