@@ -92,7 +92,7 @@ export default class Autocomplete extends Component {
       selected: null,
       // Because in React is forbidden to change component's prop inside the component, we need to save the prop inside the state and change it later
       showAllValuesOnFocus: props.showAllValues,
-      hideMenuAfterOptionClick: false,
+      optionWasClicked: false,
     }
 
     this.handleComponentBlur = this.handleComponentBlur.bind(this)
@@ -178,10 +178,10 @@ export default class Autocomplete extends Component {
 
     if (
       this.state.menuOpen !== prevState.menuOpen &&
-      this.state.hideMenuAfterOptionClick === true &&
+      this.state.optionWasClicked === true &&
       this.state.options.length <= 1
     ) {
-      this.setState({ menuOpen: false, hideMenuAfterOptionClick: false });
+      this.setState({ menuOpen: false, optionWasClicked: false });
     }
 
     if (prevProps.value !== this.props.value) {
@@ -349,7 +349,7 @@ export default class Autocomplete extends Component {
       menuOpen: false,
       query: newQuery,
       selected: -1,
-      hideMenuAfterOptionClick: true
+      optionWasClicked: true
     })
     this.forceUpdate()
 
