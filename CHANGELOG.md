@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## 1.10.1 - 2019-20-08
+
+- Fix rerender option after option change from outside
+  [@LukasPolak](https://github.com/LukasPolak)
+    ([#21](https://github.com/lightingbeetle/accessible-autocomplete/pull/21))
+
 ## 1.10.0 - 2019-16-08
 
 - Fix closing dropdown after clicking on option
