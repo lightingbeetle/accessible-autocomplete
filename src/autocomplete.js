@@ -72,22 +72,12 @@ export default class Autocomplete extends Component {
   constructor (props) {
     super(props)
 
-    const setCorrectOptions = () => {
-      if (props.value) {
-        return [props.value];
-      } else if (props.defaultValue) {
-        return [props.defaultValue];
-      } else {
-        return [];
-      }
-    };
-
     this.state = {
       focused: null,
       hovered: null,
       clicked: null,
       menuOpen: false,
-      options: setCorrectOptions(),
+      options: [],
       query: props.value || props.defaultValue || '',
       selected: null,
       // Because in React is forbidden to change component's prop inside the component, we need to save the prop inside the state and change it later
