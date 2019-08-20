@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## 1.10.2 - 2019-20-08
+
+- Fix flashing options for predefined value that is not in options
+  [@LukasPolak](https://github.com/LukasPolak)
+    ([#23](https://github.com/lightingbeetle/accessible-autocomplete/pull/23))
+
 ## 1.10.1 - 2019-20-08
 
 - Fix rerender option after option change from outside
