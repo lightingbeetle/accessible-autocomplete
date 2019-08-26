@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+## 1.10.3 - 2019-26-08
+
+- pass `event` to `onChange` function as a second argument
+  [@LukasPolak](https://github.com/LukasPolak)
+    ([#25](https://github.com/lightingbeetle/accessible-autocomplete/pull/25))
+- fix autocomplete bugs after controlling with keyboard, rerender props on options change, show options after focus.
+  [@LukasPolak](https://github.com/LukasPolak)
+    ([#26](https://github.com/lightingbeetle/accessible-autocomplete/pull/26))
+
 ## 1.10.2 - 2019-20-08
 
 - Fix flashing options for predefined value that is not in options
