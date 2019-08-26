@@ -285,7 +285,7 @@ export default class Autocomplete extends Component {
     }
 
     if (queryChanged) {
-      this.props.onChange(query)
+      this.props.onChange(query, event)
       if (query.length > 0) {
         this.setState({ showAllValuesOnFocus: true })
       } else if (this.props.showAllValues) {
@@ -343,7 +343,7 @@ export default class Autocomplete extends Component {
     })
     this.forceUpdate()
 
-    this.props.onChange(newQuery)
+    this.props.onChange(newQuery, event)
   }
 
   handleUpArrow (event) {
