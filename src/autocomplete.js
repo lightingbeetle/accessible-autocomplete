@@ -288,6 +288,8 @@ export default class Autocomplete extends Component {
       this.props.onChange(query)
       if (query.length > 0) {
         this.setState({ showAllValuesOnFocus: true })
+      } else if (this.props.showAllValues) {
+        this.setState({ showAllValuesOnFocus: true })
       } else {
         this.setState({ showAllValuesOnFocus: false })
       }
