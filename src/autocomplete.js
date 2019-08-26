@@ -166,11 +166,7 @@ export default class Autocomplete extends Component {
       });
     }
 
-    if (
-      this.state.menuOpen !== prevState.menuOpen &&
-      this.state.optionWasClicked === true &&
-      this.state.options.length <= 1
-    ) {
+    if (this.state.optionWasClicked) {
       this.setState({ menuOpen: false, optionWasClicked: false });
     }
 
@@ -333,7 +329,7 @@ export default class Autocomplete extends Component {
     clearTimeout(this.$blurInput)
     this.props.onConfirm(selectedOption)
     this.setState({
-      focused: 0,
+      focused: -1,
       clicked: index,
       hovered: null,
       menuOpen: false,
