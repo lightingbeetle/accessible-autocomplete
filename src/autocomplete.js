@@ -300,9 +300,11 @@ export default class Autocomplete extends Component {
 
   handleInputFocus (event) {
     this.setState({
-      focused: -1
+      focused: -1,
+      menuOpen: true
     })
-    this.setState({ menuOpen: true })
+
+    this.handleInputChange(event)
   }
 
   handleOptionFocus (index) {
