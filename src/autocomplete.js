@@ -64,7 +64,8 @@ export default class Autocomplete extends Component {
     required: false,
     tNoResults: () => 'No results found',
     dropdownArrow: DropdownArrowDown,
-    isDisabled: false
+    isDisabled: false,
+    disableSearch: false,
   }
 
   elementReferences = {}
@@ -83,6 +84,7 @@ export default class Autocomplete extends Component {
       // Because in React is forbidden to change component's prop inside the component, we need to save the prop inside the state and change it later
       showAllValuesOnFocus: props.showAllValues,
       optionWasClicked: false,
+      disableSearch: props.disableSearch,
     }
 
     this.handleComponentBlur = this.handleComponentBlur.bind(this)
@@ -160,7 +162,6 @@ export default class Autocomplete extends Component {
     if (prevProps !== this.props && this.props.newOptions) {
       this.props.source(this.props.value, newOptions => {
         this.setState({
-          menuOpen: true,
           options: newOptions
         });
       });
@@ -267,7 +268,7 @@ export default class Autocomplete extends Component {
 
     this.setState({ query })
 
-    const searchForOptions = this.state.showAllValuesOnFocus || (!queryEmpty && queryChanged && queryLongEnough)
+    const searchForOptions = !this.state.disableSearch && this.state.showAllValuesOnFocus || (!queryEmpty && queryChanged && queryLongEnough)
     if (searchForOptions) {
       source(query, (options) => {
         const optionsAvailable = options.length > 0
@@ -277,10 +278,22 @@ export default class Autocomplete extends Component {
           selected: (autoselect && optionsAvailable) ? 0 : -1
         })
       })
-    } else if (queryEmpty || !queryLongEnough) {
+    } else if (!this.state.disableSearch || queryEmpty || !queryLongEnough) {
       this.setState({
         menuOpen: false,
         options: []
+      })
+    } 
+    
+    //this will open non-filtered dropdown with options
+    if (this.state.disableSearch) {
+      source('', (options) => {
+        const optionsAvailable = options.length > 0
+        this.setState({
+          menuOpen: true,
+          options,
+          selected: (autoselect && optionsAvailable) ? 0 : -1
+        })
       })
     }
 
