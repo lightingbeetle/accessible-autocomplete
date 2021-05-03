@@ -1,3 +1,5 @@
+# This fork has been archived
+
 # Accessible autocomplete
 
 [![npm version](https://img.shields.io/npm/v/accessible-autocomplete.svg)](http://npm.im/accessible-autocomplete)
